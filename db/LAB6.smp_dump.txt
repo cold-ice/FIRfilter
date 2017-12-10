@@ -1,0 +1,17 @@
+
+State Machine - |LAB6|control_unit:CU|status
+Name status.completed status.source status.alg8 status.alg7 status.alg6 status.alg5 status.alg4 status.alg3 status.alg2 status.alg1 status.alg0 status.acquire status.store status.idle 
+status.idle 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+status.store 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+status.acquire 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+status.alg0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+status.alg1 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+status.alg2 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+status.alg3 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+status.alg4 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+status.alg5 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+status.alg6 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+status.alg7 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+status.alg8 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+status.source 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+status.completed 1 0 0 0 0 0 0 0 0 0 0 0 0 1 

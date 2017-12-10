@@ -1,0 +1,122 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+ENTITY DATAPATH is
+GENERIC ( memL	: INTEGER);
+PORT (	CLOCK_50 : 				 IN  STD_LOGIC;
+			EN_COUNTER : 			 IN  STD_LOGIC;
+			CL : 						 IN  STD_LOGIC;
+			X : 						 IN  SIGNED(7 downto 0);
+			ADD_SUB :				 IN  STD_LOGIC;
+			ADD_SEL :				 IN  STD_LOGIC_VECTOR(1 downto 0);
+			SELdata :				 IN  STD_LOGIC;
+			SEL:						 IN  STD_LOGIC_VECTOR(2 DOWNTO 0);
+			Y : 						 OUT SIGNED(7 downto 0);
+			ADDRTOMEM : 			 OUT INTEGER RANGE 0 to memL;
+			COUNT_DONE : 			 OUT STD_LOGIC:='0'
+);
+END DATAPATH;
+
+ARCHITECTURE behavioural OF DATAPATH IS
+
+COMPONENT regn IS
+	GENERIC ( N	: integer:=11);
+	PORT (I					: IN	SIGNED(N-1 DOWNTO 0);
+			Q					: OUT	SIGNED(N-1 DOWNTO 0);
+			Sel				: IN 	STD_LOGIC_VECTOR(2 downto 0);
+			Clock, Reset	: IN 	STD_LOGIC
+			);
+END COMPONENT;
+
+COMPONENT regNbit IS
+	GENERIC ( N	: integer);
+	PORT (I					: IN	SIGNED(N-1 DOWNTO 0);
+			Q					: OUT	SIGNED(N-1 DOWNTO 0);
+			EN					: IN 	STD_LOGIC;
+			Clock, Reset	: IN 	STD_LOGIC
+			);
+END COMPONENT;
+
+-- we have not used an overflow check at the output of the adder because we had 3 guard digits
+COMPONENT adder IS
+	GENERIC ( N	: INTEGER:=11);
+	PORT (A					: IN	SIGNED(N-1 DOWNTO 0);
+			Z					: IN	SIGNED(N-1 DOWNTO 0);
+			SUB				: IN 	STD_LOGIC;
+			SUM				: OUT SIGNED(N-1 DOWNTO 0));
+END COMPONENT;
+
+SIGNAL Q0, Q1, Q2, Q3, XX  		 						 : SIGNED(7 downto 0);
+SIGNAL ADDRESS 				 						 :	INTEGER RANGE 0 TO memL;
+SIGNAL QTOMUX, QTOADD, ITER, SUMREG, SUMOUT	 : SIGNED(10 downto 0);
+SIGNAL SELSEL, SELNOTSEL				:  	STD_LOGIC_VECTOR(2 downto 0);
+SIGNAL OVERFLOW_SEL : STD_LOGIC_VECTOR(1 downto 0);
+SIGNAL REG_EN	:	STD_LOGIC;
+
+BEGIN
+
+--ADDRESS_UPDATER
+PROCESS(CLOCK_50, EN_COUNTER, CL)
+BEGIN
+
+IF(CL='1') THEN	
+	ADDRESS <= 0;
+ELSIF(CLOCK_50'event AND CLOCK_50='1') THEN
+	count_done <= '0';
+	
+	IF(EN_COUNTER = '1' AND ADDRESS < memL) THEN 
+			ADDRESS <= ADDRESS +1;
+	ELSIF(EN_COUNTER = '1' AND ADDRESS = memL) THEN
+			ADDRESS <= 0;
+			count_done <= '1';
+	END IF;
+			
+END IF;
+			
+END PROCESS;
+
+-- INPUT REGISTERS
+DATA0: regNbit GENERIC MAP ( N	=> 8) PORT MAP (X, Q0, SELdata, CLOCK_50, CL);
+DATA1: regNbit GENERIC MAP ( N	=> 8) PORT MAP (Q0, Q1, SELdata, CLOCK_50, CL);
+DATA2: regNbit GENERIC MAP ( N	=> 8) PORT MAP (Q1, Q2, SELdata, CLOCK_50, CL);
+DATA3: regNbit GENERIC MAP ( N	=> 8) PORT MAP (Q2, Q3, SELdata, CLOCK_50, CL);
+
+-- INPUT MUX
+with ADD_SEL select XX <= 
+						Q0 when "00",
+						Q1 when "01",
+						Q2 when "10",
+						Q3 when "11",
+						Q0 when others;
+
+QTOMUX <= XX(7) & XX(7) & XX(7) & XX; -- SHR input is brought up to 11 bits
+						
+-- SHIFT REGISTER TO ADDER INPUT b
+TEMP : regn PORT MAP (QTOMUX, QTOADD, SEL, CLOCK_50, CL);
+
+-- MUX TO ADDER INPUT a
+with ADD_SEL select ITER <=	
+						(others => '0') when "01",
+						SUMOUT when others;
+
+-- ADDER
+ADD: adder PORT MAP (ITER, QTOADD, ADD_SUB, SUMREG);
+
+-- REGISTER CONTAINING THE OUTPUT OF THE ADDER
+REG_EN <= NOT SEL(2) AND SEL(1);
+
+SUMR : regNbit GENERIC MAP (N => 11) PORT MAP (SUMREG, SUMOUT, REG_EN, CLOCK_50, CL);
+
+ADDRTOMEM <= ADDRESS;
+
+-- OVERFLOW CHECK VIA COMBINATIONAL CIRCUIT AND MULTIPLEXER
+OVERFLOW_SEL(0) <= SUMOUT(10);
+OVERFLOW_SEL(1) <= (SUMOUT(10) AND SUMOUT(9) AND SUMOUT(8) AND SUMOUT(7)) OR NOT(SUMOUT(10) OR SUMOUT(9) OR SUMOUT(8) OR SUMOUT(7));
+
+WITH OVERFLOW_SEL SELECT Y <=
+	"01111111" when "00",
+	"10000000" when "01",
+	SUMOUT(7 downto 0) when others;
+						
+END behavioural;

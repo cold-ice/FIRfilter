@@ -1,0 +1,90 @@
+D:/Documenti/VHDL/Lab06/LAB6/DATAPATH.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/DATAPATH.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity DATAPATH
+-- Compiling architecture behavioural of DATAPATH
+
+} {} {}} D:/Documenti/VHDL/Lab06/LAB6/fulladder.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/fulladder.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity fulladder
+-- Compiling architecture behavior of fulladder
+
+} {} {}} D:/Documenti/VHDL/Lab06/LAB6/regNbit.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/regNbit.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity regNbit
+-- Compiling architecture Behavior of regNbit
+
+} {} {}} D:/Documenti/VHDL/Lab06/LAB6/adder.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/adder.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity adder
+-- Compiling architecture howto of adder
+
+} {} {}} D:/Documenti/VHDL/Lab06/LAB6/control_unit.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/control_unit.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity control_unit
+-- Compiling architecture behavioural of control_unit
+
+} {} {}} D:/Documenti/VHDL/Lab06/LAB6/DFF.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/DFF.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity DFF
+-- Compiling architecture behavioural of DFF
+
+} {} {}} D:/Documenti/VHDL/Lab06/LAB6/regn.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/regn.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity regn
+-- Compiling architecture Behavior of regn
+
+} {} {}} D:/Documenti/VHDL/Lab06/LAB6/LAB6.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/LAB6.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity LAB6
+-- Compiling architecture behavioural of LAB6
+
+} {} {}} D:/Documenti/VHDL/Lab06/LAB6/memory.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/memory.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity MEMORY
+-- Compiling architecture behavioural of MEMORY
+
+} {} {}} D:/Documenti/VHDL/Lab06/LAB6/tb.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Documenti/VHDL/Lab06/LAB6/tb.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity tb
+-- Compiling architecture behavioural of tb
+
+} {} {}}

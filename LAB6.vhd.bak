@@ -1,0 +1,73 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+-- Leggi MOLTO BENE la consegna del lab06 prima di iniziare a leggere.
+-- L'ordine di lettura e': lab06top, control unit, datapath.
+
+ENTITY lab06top IS
+
+PORT (	CLOCK_50 : 	IN STD_LOGIC;
+			START : 		IN STD_LOGIC;
+			DATA_IN : 	IN SIGNED(7 downto 0);
+			DONE : 		OUT STD_LOGIC
+--			DATA_OUT :  OUT STD_LOGIC_VECTOR(7 downto 0)                    Dovrebbe essere inutile (CEO)
+);
+END lab06top;
+
+ARCHITECTURE behavioural OF lab06top IS
+
+-- Quando CS e' alto, la memoria e' accessibile. Se WR e' alto, la memoria, al prossimo colpo di clock, si prende i bit in ingresso e li mette
+-- nell'address che gli viene dato, altrimenti non prende niente.
+-- Se RD e' alto la memoria fa uscire i byte immagazzinati nell'address che gli viene fornito, altrimenti esce
+-- "00000000". Da notare che i byte in uscita partono subito, senza bisogno che il clock gli dia l'ok.
+COMPONENT MEMORY
+PORT (	CLOCK_50 : 		IN  STD_LOGIC;
+			CS, WR, RD : 	IN  STD_LOGIC;
+			D_IN : 			IN  SIGNED(7 downto 0);
+			ADDRESS : 		IN  INTEGER RANGE 0 to 5; -- 5 deve essere cambiato in 1023
+			D_OUT : 			OUT SIGNED(7 downto 0)
+);
+END COMPONENT;
+
+-- Ora apri control Unit.
+--COMPONENT CONTROL_UNIT
+--PORT (	CLOCK_50 : 					IN STD_LOGIC;
+--			START : 						IN STD_LOGIC;
+--			COMPUTATION_COMPLETE : 	IN STD_LOGIC;
+--			CS_A, WR_A, RD_A: 		OUT STD_LOGIC;
+--			CS_B, WR_B, RD_B : 		OUT STD_LOGIC;
+--			EN : 							OUT STD_LOGIC;
+--			ADDRESS : 					OUT INTEGER RANGE 0 to 5; -- 5 deve essere cambiato in 1023
+--			DONE : 						OUT STD_LOGIC
+--);
+--END COMPONENT;
+
+--COMPONENT DATAPATH
+--PORT (	CLOCK_50 : 					IN STD_LOGIC;
+--			ENABLE : 					IN STD_LOGIC;
+--			X : 							IN STD_LOGIC_VECTOR(7 downto 0);
+--			Y : 							OUT STD_LOGIC_VECTOR(7 downto 0);
+--			COMPUTATION_COMPLETE : 	OUT STD_LOGIC
+--);
+--END COMPONENT;
+
+SIGNAL CS_A, WR_A, RD_A, CS_B, WR_B, RD_B: 	STD_LOGIC;
+SIGNAL ENABLE, COMPUTATION_COMPLETE : 			STD_LOGIC;
+SIGNAL ADDRESS : 										INTEGER RANGE 0 to 5; -- 5 deve essere cambiato in 1023
+SIGNAL X, Y : 											SIGNED(7 downto 0);
+
+BEGIN
+
+MEM_A: memory 			PORT MAP(CLOCK_50, CS_A, WR_A, RD_A, DATA_IN, ADDRESS,X);
+MEM_B: memory 			PORT MAP(CLOCK_50, CS_B, WR_B, RD_B, Y, ADDRESS);
+--CU: control_unit 		PORT MAP(CLOCK_50,START,COMPUTATION_COMPLETE,CS_A, WR_A, RD_A, CS_B, WR_B, RD_B,ENABLE,ADDRESS,DONE);
+--DP: datapath 			PORT MAP(CLOCK_50,ENABLE,X,Y,COMPUTATION_COMPLETE);
+
+-- RICAPITOLANDO: bisogna aggiungere IN DATAPATH i pezzi per far fare l'operazione che definisce Y ad ogni ciclo
+-- e bisogna cambiare IN CONTROL UNIT l'algoritmo in modo che il byte all'indirizzo 0 della memoria A NON venga riscritto
+-- con il byte immagazzinato nell'ultimo indirizzo.
+-- Il progetto da aprire con modelsim per testare tutto si chiama lab06sim e si trova in questa stessa cartella.
+--Buon divertimento.
+
+END behavioural;

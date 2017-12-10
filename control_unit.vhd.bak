@@ -1,0 +1,199 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+ENTITY control_unit IS
+PORT (	CLOCK_50 : IN STD_LOGIC;
+			START : IN STD_LOGIC;
+			COUNT_DONE : IN STD_LOGIC; -- change to 1023
+			CS_A, WR_A, RD_A, CS_B, WR_B, RD_B : OUT STD_LOGIC;
+			loadQ : OUT STD_LOGIC;
+			CL : OUT STD_LOGIC;
+			count : OUT STD_LOGIC;
+			DONE : OUT STD_LOGIC;
+			MUXIN : OUT STD_LOGIC_VECTOR (1 DOWNTO 0);
+			temp_command : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+			sub : OUT STD_LOGIC
+);
+END control_unit;
+
+ARCHITECTURE behavioural OF control_unit IS
+
+-- 5 deve essere cambiato in 1023
+-- Il motivo per cui addbuff parte da -1 sara' chiaro a breve. Sicuramente c'e' un modo per evitarlo, ma per
+-- ora non mi e' venuto in mente.
+--SIGNAL addbuff : INTEGER range -1 to 5;
+SIGNAL ADDRESS : INTEGER range -1 to 5;
+
+
+TYPE states IS (idle, store, acquire, alg0, alg1, alg2, alg3, alg4, alg5, alg6, alg7, alg8, source, completed);
+SIGNAL status, nextstatus : states:=idle;
+
+BEGIN
+---- se addbuff e' 1, l'address viene messo a 0 di default, altrimenti acquisirebbe un valore senza senso.
+--WITH addbuff SELECT	ADDRESS <= 	0 when -1,
+--											addbuff when others;
+
+
+-- STATUS DESCRIPTION
+PROCESS(CLOCK_50)
+BEGIN
+	IF rising_edge(CLOCK_50) THEN
+	        status <= nextstatus;
+	END IF;
+END PROCESS;
+
+
+PROCESS(status, count_done)
+BEGIN
+
+	loadQ <='0';
+	CL <= '0';
+	
+	count <='0'; -- counter enable
+	temp_command <="000"; -- shift left, shift right, preserve or acquire input of TEMP
+	sub <='0'; -- add or subtract
+--	enable_res<='0'; -- enables result register of adder
+--	clear_res <='0'; -- clears result register of adder
+	MUXIN <="00"; -- Select of MUX to select the input of TEMP (shift register)
+	
+	CS_A<='0';
+	WR_A<='0';
+	RD_A<='0';
+
+	CS_B<='0';
+	WR_B<='0';
+	RD_B<='0';
+	
+	done <='0';
+	
+	CASE status IS
+
+	-- Il circuito non fa niente, aspetta finche' non gli viene dato il segnale di start.
+	WHEN idle =>
+		-- Addbuff viene resettato a -1, enable viene messo a 1 perche' in questo modo lo shift register dentro il data
+		-- path si resetta, visto che la memoria A fa uscire "00000000" se non viene
+		-- abilitata la modalita' di lettura.
+			CL <='1';
+			IF(START='1') THEN
+				nextstatus <= store;
+				-- Done viene messo a zero perche' anche avessimo finito prima un'esecuzione si deve ricominciare.
+			END IF;
+			
+	-- MEM_A viene attivata in modalita' di lettura. Ad ogni giro l'address viene incrementato di 1. Partendo da -1,
+	-- al primo giro l'address diventa 0. Quello che c'e' dentro DATA_IN viene messo nella memoria A, all'indirizzo
+	-- fornitogli.
+	WHEN store =>
+		IF(count_done='1') THEN
+			-- Purtroppo, all'ultimo ciclo, anche se WR_A viene messo basso, l'ultimo dato sovrascrive il byte all'indirizzo
+			-- 0, ossia il primo byte memorizzato. Ho trovato un metodo per risolvere sta robb, ma causa altri problemi...quindi
+			-- dobbiamo ancora lavorarci.
+			-- Quando abbiamo completato l'indirizzo si passa alla fase successiva, cioe' riempire la memoria B con
+			-- -0.5Q(0) - 2Q(1) ecc ecc ecc...
+			nextstatus <= acquire;
+			ELSE
+			  count <='1';
+			  WR_A<='1';
+			  CS_A<='1';
+		END IF;
+		
+	-- Prima di tutto prendiamo un byte da MEM_A all'indirizzo voluto e lo mettiamo dentro il Data Path.	
+	WHEN acquire =>
+		-- La Control Unit dice al Datapath che si deve prendere un byte e manda ENABLE alto per farglielo fare.
+		loadQ <= '1';
+		CS_A <='1';
+		RD_A <='1';
+		-- L'indirizzo viene aggiornato qui. Nota che parte da -1, quindi all'inizio e' zero, non -1.
+		IF(count_done='0') THEN
+		  nextstatus <= alg0;
+			loadQ <= '1';
+		  CS_A <='1';
+		  RD_A <='1';
+	  ELSE
+	    nextstatus <= completed;
+	    END IF;
+	-- Ora il byte che vogliamo elaborare e' dentro il datapath. Nota che ora Enable, CS, WR_A, ecc, sono tutti bassi:
+	-- stiamo aspettando che il datapath dia il via libera, dicendo che ha pronto il byte da passare alla memoria B mandando
+	-- computation_complete alto. NOPE
+	WHEN alg0 =>
+		temp_command <= "010";
+
+		nextstatus <= alg1;
+		
+	WHEN alg1 =>
+		temp_command <= "110";  --SHR
+		
+		nextstatus <= alg2;
+		
+	WHEN alg2 =>
+		MUXIN <="01";    -- we're inputing zero as first operand
+		sub <= '1';
+		temp_command<="010";
+		
+		nextstatus <= alg3;
+	
+	
+	WHEN alg3 =>
+		temp_command <= "100"; --SHL
+		
+		nextstatus <= alg4;
+
+	WHEN alg4 =>
+		MUXIN <="10";
+		sub <= '1';
+		temp_command<="010";
+		
+		nextstatus <= alg5;
+		
+	WHEN alg5 =>
+		temp_command <= "101"; --double SHL
+		
+		nextstatus <= alg6;		
+		
+		
+	WHEN alg6 =>
+		MUXIN <="11";
+		temp_command<="010";
+
+		nextstatus <= alg7;
+		
+	WHEN alg7 =>
+		temp_command <= "111";  --double SHR
+		
+		nextstatus <= alg8;	
+		
+
+	WHEN alg8 =>
+		temp_command<="010";
+		
+		nextstatus <= source;			
+		
+		
+	WHEN source =>
+		CS_B <= '1';
+		WR_B <= '1';
+		COUNT <= '1';
+
+			nextstatus <= acquire;
+
+		
+	WHEN completed =>
+		done <='1';
+		
+		IF(start='0') THEN
+			nextstatus <= idle;
+			done <='0';
+		END IF;	
+		
+	WHEN others =>
+	  
+		IF(start='1') THEN
+			nextstatus <= store;
+			CL <= '1';
+			done <='0';
+		END IF;
+
+	END CASE;
+END PROCESS;
+
+END behavioural;

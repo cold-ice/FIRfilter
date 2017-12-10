@@ -1,0 +1,315 @@
+Classic Timing Analyzer report for LAB6
+Sun Jun 12 19:30:12 2016
+Quartus II Version 10.0 Build 218 06/27/2010 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Classic Timing Analyzer Deprecation
+  3. Timing Analyzer Summary
+  4. Timing Analyzer Settings
+  5. Clock Settings Summary
+  6. Parallel Compilation
+  7. Clock Setup: 'CLOCK_50'
+  8. Clock Hold: 'CLOCK_50'
+  9. tco
+ 10. tpd
+ 11. Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2010 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
+---------------------------------------
+; Classic Timing Analyzer Deprecation ;
+---------------------------------------
+Classic Timing Analyzer will not be available in a future release of the Quartus II software. Use the TimeQuest Timing Analyzer to run timing analysis on your design. Convert all the project settings and the timing constraints to TimeQuest Timing Analyzer equivalents.
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Summary                                                                                                                                                                                                                        ;
++------------------------------+------------------------------------------+---------------+----------------------------------+-------------------------------------+--------------------------------------+------------+----------+--------------+
+; Type                         ; Slack                                    ; Required Time ; Actual Time                      ; From                                ; To                                   ; From Clock ; To Clock ; Failed Paths ;
++------------------------------+------------------------------------------+---------------+----------------------------------+-------------------------------------+--------------------------------------+------------+----------+--------------+
+; Worst-case tco               ; N/A                                      ; None          ; 6.686 ns                         ; control_unit:CU|status.completed    ; DONE                                 ; CLOCK_50   ; --       ; 0            ;
+; Worst-case tpd               ; N/A                                      ; None          ; 8.701 ns                         ; START                               ; DONE                                 ; --         ; --       ; 0            ;
+; Clock Setup: 'CLOCK_50'      ; N/A                                      ; None          ; 105.40 MHz ( period = 9.488 ns ) ; control_unit:CU|nextstatus.idle_380 ; control_unit:CU|status.idle          ; CLOCK_50   ; CLOCK_50 ; 0            ;
+; Clock Hold: 'CLOCK_50'       ; Not operational: Clock Skew > Data Delay ; None          ; N/A                              ; control_unit:CU|status.idle         ; control_unit:CU|nextstatus.store_371 ; CLOCK_50   ; CLOCK_50 ; 17           ;
+; Total number of failed paths ;                                          ;               ;                                  ;                                     ;                                      ;            ;          ; 17           ;
++------------------------------+------------------------------------------+---------------+----------------------------------+-------------------------------------+--------------------------------------+------------+----------+--------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Settings                                                                                                                            ;
++------------------------------------------------------------------------------------------------------+--------------------+------+----+-------------+
+; Option                                                                                               ; Setting            ; From ; To ; Entity Name ;
++------------------------------------------------------------------------------------------------------+--------------------+------+----+-------------+
+; Device Name                                                                                          ; EP2C35F672C6       ;      ;    ;             ;
+; Timing Models                                                                                        ; Final              ;      ;    ;             ;
+; Default hold multicycle                                                                              ; Same as Multicycle ;      ;    ;             ;
+; Cut paths between unrelated clock domains                                                            ; On                 ;      ;    ;             ;
+; Cut off read during write signal paths                                                               ; On                 ;      ;    ;             ;
+; Cut off feedback from I/O pins                                                                       ; On                 ;      ;    ;             ;
+; Report Combined Fast/Slow Timing                                                                     ; Off                ;      ;    ;             ;
+; Ignore Clock Settings                                                                                ; Off                ;      ;    ;             ;
+; Analyze latches as synchronous elements                                                              ; On                 ;      ;    ;             ;
+; Enable Recovery/Removal analysis                                                                     ; Off                ;      ;    ;             ;
+; Enable Clock Latency                                                                                 ; Off                ;      ;    ;             ;
+; Use TimeQuest Timing Analyzer                                                                        ; Off                ;      ;    ;             ;
+; Minimum Core Junction Temperature                                                                    ; 0                  ;      ;    ;             ;
+; Maximum Core Junction Temperature                                                                    ; 85                 ;      ;    ;             ;
+; Number of source nodes to report per destination node                                                ; 10                 ;      ;    ;             ;
+; Number of destination nodes to report                                                                ; 10                 ;      ;    ;             ;
+; Number of paths to report                                                                            ; 200                ;      ;    ;             ;
+; Report Minimum Timing Checks                                                                         ; Off                ;      ;    ;             ;
+; Use Fast Timing Models                                                                               ; Off                ;      ;    ;             ;
+; Report IO Paths Separately                                                                           ; Off                ;      ;    ;             ;
+; Perform Multicorner Analysis                                                                         ; On                 ;      ;    ;             ;
+; Reports the worst-case path for each clock domain and analysis                                       ; Off                ;      ;    ;             ;
+; Reports worst-case timing paths for each clock domain and analysis                                   ; On                 ;      ;    ;             ;
+; Specifies the maximum number of worst-case timing paths to report for each clock domain and analysis ; 100                ;      ;    ;             ;
+; Removes common clock path pessimism (CCPP) during slack computation                                  ; Off                ;      ;    ;             ;
+; Output I/O Timing Endpoint                                                                           ; Near End           ;      ;    ;             ;
++------------------------------------------------------------------------------------------------------+--------------------+------+----+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Settings Summary                                                                                                                                                             ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; Clock Node Name ; Clock Setting Name ; Type     ; Fmax Requirement ; Early Latency ; Late Latency ; Based on ; Multiply Base Fmax by ; Divide Base Fmax by ; Offset ; Phase offset ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; CLOCK_50        ;                    ; User Pin ; None             ; 0.000 ns      ; 0.000 ns     ; --       ; N/A                   ; N/A                 ; N/A    ;              ;
+; START           ;                    ; User Pin ; None             ; 0.000 ns      ; 0.000 ns     ; --       ; N/A                   ; N/A                 ; N/A    ;              ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 2      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Setup: 'CLOCK_50'                                                                                                                                                                                                                          ;
++-------+------------------------------------------------+------------------------------------------+----------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; Slack ; Actual fmax (period)                           ; From                                     ; To                               ; From Clock ; To Clock ; Required Setup Relationship ; Required Longest P2P Time ; Actual Longest P2P Time ;
++-------+------------------------------------------------+------------------------------------------+----------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; N/A   ; 105.40 MHz ( period = 9.488 ns )               ; control_unit:CU|nextstatus.idle_380      ; control_unit:CU|status.idle      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.482 ns                ;
+; N/A   ; 112.08 MHz ( period = 8.922 ns )               ; control_unit:CU|nextstatus.store_371     ; control_unit:CU|status.store     ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 115.07 MHz ( period = 8.690 ns )               ; control_unit:CU|nextstatus.completed_263 ; control_unit:CU|status.completed ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 117.43 MHz ( period = 8.516 ns )               ; control_unit:CU|nextstatus.alg8_281      ; control_unit:CU|status.alg8      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 117.48 MHz ( period = 8.512 ns )               ; control_unit:CU|nextstatus.alg1_344      ; control_unit:CU|status.alg1      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 119.45 MHz ( period = 8.372 ns )               ; control_unit:CU|nextstatus.alg6_299      ; control_unit:CU|status.alg6      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 119.45 MHz ( period = 8.372 ns )               ; control_unit:CU|nextstatus.alg5_308      ; control_unit:CU|status.alg5      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 119.45 MHz ( period = 8.372 ns )               ; control_unit:CU|nextstatus.alg0_353      ; control_unit:CU|status.alg0      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 119.47 MHz ( period = 8.370 ns )               ; control_unit:CU|nextstatus.alg7_290      ; control_unit:CU|status.alg7      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 119.53 MHz ( period = 8.366 ns )               ; control_unit:CU|nextstatus.alg4_317      ; control_unit:CU|status.alg4      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 119.53 MHz ( period = 8.366 ns )               ; control_unit:CU|nextstatus.alg3_326      ; control_unit:CU|status.alg3      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 119.56 MHz ( period = 8.364 ns )               ; control_unit:CU|nextstatus.alg2_335      ; control_unit:CU|status.alg2      ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 120.89 MHz ( period = 8.272 ns )               ; control_unit:CU|nextstatus.source_272    ; control_unit:CU|status.source    ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; 122.10 MHz ( period = 8.190 ns )               ; control_unit:CU|nextstatus.acquire_362   ; control_unit:CU|status.acquire   ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.084 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[0]                   ; DATAPATH:DP|COUNT_DONE           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.439 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; control_unit:CU|status.source            ; DATAPATH:DP|COUNT_DONE           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.403 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; control_unit:CU|status.store             ; DATAPATH:DP|COUNT_DONE           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.583 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|COUNT_DONE                   ; DATAPATH:DP|COUNT_DONE           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.561 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[2]                   ; DATAPATH:DP|COUNT_DONE           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.253 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[1]                   ; DATAPATH:DP|COUNT_DONE           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.162 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; control_unit:CU|status.source            ; DATAPATH:DP|ADDRESS[2]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.372 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; control_unit:CU|status.store             ; DATAPATH:DP|ADDRESS[2]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.522 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; control_unit:CU|status.source            ; DATAPATH:DP|ADDRESS[1]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.247 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; control_unit:CU|status.source            ; DATAPATH:DP|ADDRESS[0]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.246 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; control_unit:CU|status.store             ; DATAPATH:DP|ADDRESS[1]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.397 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; control_unit:CU|status.store             ; DATAPATH:DP|ADDRESS[0]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.396 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|COUNT_DONE                   ; DATAPATH:DP|ADDRESS[2]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.256 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[0]                   ; DATAPATH:DP|ADDRESS[2]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.039 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[0]                   ; DATAPATH:DP|ADDRESS[1]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.030 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[2]                   ; DATAPATH:DP|ADDRESS[1]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.005 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[2]                   ; DATAPATH:DP|ADDRESS[0]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.001 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|COUNT_DONE                   ; DATAPATH:DP|ADDRESS[1]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.131 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|COUNT_DONE                   ; DATAPATH:DP|ADDRESS[0]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 1.130 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[1]                   ; DATAPATH:DP|ADDRESS[0]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.849 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; control_unit:CU|status.idle              ; DATAPATH:DP|COUNT_DONE           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.825 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[1]                   ; DATAPATH:DP|ADDRESS[2]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.744 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[2]                   ; DATAPATH:DP|ADDRESS[2]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.407 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[0]                   ; DATAPATH:DP|ADDRESS[0]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.407 ns                ;
+; N/A   ; Restricted to 420.17 MHz ( period = 2.380 ns ) ; DATAPATH:DP|ADDRESS[1]                   ; DATAPATH:DP|ADDRESS[1]           ; CLOCK_50   ; CLOCK_50 ; None                        ; None                      ; 0.407 ns                ;
++-------+------------------------------------------------+------------------------------------------+----------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Hold: 'CLOCK_50'                                                                                                                                                                                                              ;
++------------------------------------------+----------------------------------+------------------------------------------+------------+----------+----------------------------+----------------------------+--------------------------+
+; Minimum Slack                            ; From                             ; To                                       ; From Clock ; To Clock ; Required Hold Relationship ; Required Shortest P2P Time ; Actual Shortest P2P Time ;
++------------------------------------------+----------------------------------+------------------------------------------+------------+----------+----------------------------+----------------------------+--------------------------+
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.idle      ; control_unit:CU|nextstatus.store_371     ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 0.745 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.alg6      ; control_unit:CU|nextstatus.alg7_290      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 0.582 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.completed ; control_unit:CU|nextstatus.idle_380      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 0.764 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.alg5      ; control_unit:CU|nextstatus.alg6_299      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 0.722 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.alg3      ; control_unit:CU|nextstatus.alg4_317      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 0.760 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.alg0      ; control_unit:CU|nextstatus.alg1_344      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 0.903 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.alg2      ; control_unit:CU|nextstatus.alg3_326      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 0.902 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.alg4      ; control_unit:CU|nextstatus.alg5_308      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 0.938 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.alg1      ; control_unit:CU|nextstatus.alg2_335      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 0.966 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.alg7      ; control_unit:CU|nextstatus.alg8_281      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 1.131 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.alg8      ; control_unit:CU|nextstatus.source_272    ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 1.039 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DATAPATH:DP|COUNT_DONE           ; control_unit:CU|nextstatus.completed_263 ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 1.451 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.acquire   ; control_unit:CU|nextstatus.completed_263 ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 1.566 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DATAPATH:DP|COUNT_DONE           ; control_unit:CU|nextstatus.alg0_353      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 1.865 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.source    ; control_unit:CU|nextstatus.acquire_362   ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 1.650 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.store     ; control_unit:CU|nextstatus.acquire_362   ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 1.860 ns                 ;
+; Not operational: Clock Skew > Data Delay ; control_unit:CU|status.acquire   ; control_unit:CU|nextstatus.alg0_353      ; CLOCK_50   ; CLOCK_50 ; None                       ; None                       ; 2.001 ns                 ;
++------------------------------------------+----------------------------------+------------------------------------------+------------+----------+----------------------------+----------------------------+--------------------------+
+
+
++------------------------------------------------------------------------------------------+
+; tco                                                                                      ;
++-------+--------------+------------+----------------------------------+------+------------+
+; Slack ; Required tco ; Actual tco ; From                             ; To   ; From Clock ;
++-------+--------------+------------+----------------------------------+------+------------+
+; N/A   ; None         ; 6.686 ns   ; control_unit:CU|status.completed ; DONE ; CLOCK_50   ;
++-------+--------------+------------+----------------------------------+------+------------+
+
+
++------------------------------------------------------------+
+; tpd                                                        ;
++-------+-------------------+-----------------+-------+------+
+; Slack ; Required P2P Time ; Actual P2P Time ; From  ; To   ;
++-------+-------------------+-----------------+-------+------+
+; N/A   ; None              ; 8.701 ns        ; START ; DONE ;
++-------+-------------------+-----------------+-------+------+
+
+
++--------------------------+
+; Timing Analyzer Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Classic Timing Analyzer
+    Info: Version 10.0 Build 218 06/27/2010 SJ Web Edition
+    Info: Processing started: Sun Jun 12 19:30:12 2016
+Info: Command: quartus_tan --read_settings_files=off --write_settings_files=off LAB6 -c LAB6 --timing_analysis_only
+Warning: Classic Timing Analyzer will not be available in a future release of the Quartus II software. Use the TimeQuest Timing Analyzer to run timing analysis on your design. Convert all the project settings and the timing constraints to TimeQuest Timing Analyzer equivalents.
+Warning: Timing Analysis is analyzing one or more combinational loops as latches
+    Warning: Node "control_unit:CU|nextstatus.completed_263" is a latch
+    Warning: Node "control_unit:CU|nextstatus.acquire_362" is a latch
+    Warning: Node "control_unit:CU|nextstatus.store_371" is a latch
+    Warning: Node "control_unit:CU|nextstatus.idle_380" is a latch
+    Warning: Node "control_unit:CU|nextstatus.source_272" is a latch
+    Warning: Node "control_unit:CU|nextstatus.alg8_281" is a latch
+    Warning: Node "control_unit:CU|nextstatus.alg7_290" is a latch
+    Warning: Node "control_unit:CU|nextstatus.alg6_299" is a latch
+    Warning: Node "control_unit:CU|nextstatus.alg5_308" is a latch
+    Warning: Node "control_unit:CU|nextstatus.alg4_317" is a latch
+    Warning: Node "control_unit:CU|nextstatus.alg3_326" is a latch
+    Warning: Node "control_unit:CU|nextstatus.alg2_335" is a latch
+    Warning: Node "control_unit:CU|nextstatus.alg1_344" is a latch
+    Warning: Node "control_unit:CU|nextstatus.alg0_353" is a latch
+Warning: Found pins functioning as undefined clocks and/or memory enables
+    Info: Assuming node "CLOCK_50" is an undefined clock
+    Info: Assuming node "START" is a latch enable. Will not compute fmax for this pin.
+Warning: Found 6 node(s) in clock paths which may be acting as ripple and/or gated clocks -- node(s) analyzed as buffer(s) resulting in clock skew
+    Info: Detected ripple clock "control_unit:CU|status.store" as buffer
+    Info: Detected ripple clock "control_unit:CU|status.idle" as buffer
+    Info: Detected gated clock "control_unit:CU|Selector1~0" as buffer
+    Info: Detected gated clock "control_unit:CU|Selector1~1" as buffer
+    Info: Detected ripple clock "DATAPATH:DP|COUNT_DONE" as buffer
+    Info: Detected ripple clock "control_unit:CU|status.completed" as buffer
+Info: Clock "CLOCK_50" has Internal fmax of 105.4 MHz between source register "control_unit:CU|nextstatus.idle_380" and destination register "control_unit:CU|status.idle" (period= 9.488 ns)
+    Info: + Longest register to register delay is 0.482 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCCOMB_X1_Y24_N0; Fanout = 1; REG Node = 'control_unit:CU|nextstatus.idle_380'
+        Info: 2: + IC(0.248 ns) + CELL(0.150 ns) = 0.398 ns; Loc. = LCCOMB_X1_Y24_N22; Fanout = 1; COMB Node = 'control_unit:CU|status.idle~0'
+        Info: 3: + IC(0.000 ns) + CELL(0.084 ns) = 0.482 ns; Loc. = LCFF_X1_Y24_N23; Fanout = 4; REG Node = 'control_unit:CU|status.idle'
+        Info: Total cell delay = 0.234 ns ( 48.55 % )
+        Info: Total interconnect delay = 0.248 ns ( 51.45 % )
+    Info: - Smallest clock skew is -4.298 ns
+        Info: + Shortest clock path from clock "CLOCK_50" to destination register is 2.451 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_N2; Fanout = 5; CLK Node = 'CLOCK_50'
+            Info: 2: + IC(0.915 ns) + CELL(0.537 ns) = 2.451 ns; Loc. = LCFF_X1_Y24_N23; Fanout = 4; REG Node = 'control_unit:CU|status.idle'
+            Info: Total cell delay = 1.536 ns ( 62.67 % )
+            Info: Total interconnect delay = 0.915 ns ( 37.33 % )
+        Info: - Longest clock path from clock "CLOCK_50" to source register is 6.749 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_N2; Fanout = 5; CLK Node = 'CLOCK_50'
+            Info: 2: + IC(0.915 ns) + CELL(0.787 ns) = 2.701 ns; Loc. = LCFF_X1_Y24_N27; Fanout = 3; REG Node = 'control_unit:CU|status.completed'
+            Info: 3: + IC(0.344 ns) + CELL(0.416 ns) = 3.461 ns; Loc. = LCCOMB_X1_Y24_N8; Fanout = 1; COMB Node = 'control_unit:CU|Selector1~0'
+            Info: 4: + IC(0.250 ns) + CELL(0.419 ns) = 4.130 ns; Loc. = LCCOMB_X1_Y24_N18; Fanout = 1; COMB Node = 'control_unit:CU|Selector1~1'
+            Info: 5: + IC(1.106 ns) + CELL(0.000 ns) = 5.236 ns; Loc. = CLKCTRL_G0; Fanout = 14; COMB Node = 'control_unit:CU|Selector1~1clkctrl'
+            Info: 6: + IC(1.363 ns) + CELL(0.150 ns) = 6.749 ns; Loc. = LCCOMB_X1_Y24_N0; Fanout = 1; REG Node = 'control_unit:CU|nextstatus.idle_380'
+            Info: Total cell delay = 2.771 ns ( 41.06 % )
+            Info: Total interconnect delay = 3.978 ns ( 58.94 % )
+    Info: + Micro clock to output delay of source is 0.000 ns
+    Info: + Micro setup delay of destination is -0.036 ns
+    Info: Delay path is controlled by inverted clocks -- if clock duty cycle is 50%, fmax is divided by two
+Warning: Circuit may not operate. Detected 17 non-operational path(s) clocked by clock "CLOCK_50" with clock skew larger than data delay. See Compilation Report for details.
+Info: Found hold time violation between source  pin or register "control_unit:CU|status.idle" and destination pin or register "control_unit:CU|nextstatus.store_371" for clock "CLOCK_50" (Hold time is 3.418 ns)
+    Info: + Largest clock skew is 4.413 ns
+        Info: + Longest clock path from clock "CLOCK_50" to destination register is 6.864 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_N2; Fanout = 5; CLK Node = 'CLOCK_50'
+            Info: 2: + IC(0.915 ns) + CELL(0.787 ns) = 2.701 ns; Loc. = LCFF_X1_Y24_N27; Fanout = 3; REG Node = 'control_unit:CU|status.completed'
+            Info: 3: + IC(0.344 ns) + CELL(0.416 ns) = 3.461 ns; Loc. = LCCOMB_X1_Y24_N8; Fanout = 1; COMB Node = 'control_unit:CU|Selector1~0'
+            Info: 4: + IC(0.250 ns) + CELL(0.419 ns) = 4.130 ns; Loc. = LCCOMB_X1_Y24_N18; Fanout = 1; COMB Node = 'control_unit:CU|Selector1~1'
+            Info: 5: + IC(1.106 ns) + CELL(0.000 ns) = 5.236 ns; Loc. = CLKCTRL_G0; Fanout = 14; COMB Node = 'control_unit:CU|Selector1~1clkctrl'
+            Info: 6: + IC(1.353 ns) + CELL(0.275 ns) = 6.864 ns; Loc. = LCCOMB_X1_Y24_N20; Fanout = 1; REG Node = 'control_unit:CU|nextstatus.store_371'
+            Info: Total cell delay = 2.896 ns ( 42.19 % )
+            Info: Total interconnect delay = 3.968 ns ( 57.81 % )
+        Info: - Shortest clock path from clock "CLOCK_50" to source register is 2.451 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_N2; Fanout = 5; CLK Node = 'CLOCK_50'
+            Info: 2: + IC(0.915 ns) + CELL(0.537 ns) = 2.451 ns; Loc. = LCFF_X1_Y24_N23; Fanout = 4; REG Node = 'control_unit:CU|status.idle'
+            Info: Total cell delay = 1.536 ns ( 62.67 % )
+            Info: Total interconnect delay = 0.915 ns ( 37.33 % )
+    Info: - Micro clock to output delay of source is 0.250 ns
+    Info: - Shortest register to register delay is 0.745 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X1_Y24_N23; Fanout = 4; REG Node = 'control_unit:CU|status.idle'
+        Info: 2: + IC(0.325 ns) + CELL(0.420 ns) = 0.745 ns; Loc. = LCCOMB_X1_Y24_N20; Fanout = 1; REG Node = 'control_unit:CU|nextstatus.store_371'
+        Info: Total cell delay = 0.420 ns ( 56.38 % )
+        Info: Total interconnect delay = 0.325 ns ( 43.62 % )
+    Info: + Micro hold delay of destination is 0.000 ns
+    Info: Delay path is controlled by inverted clocks -- if clock duty cycle is 50%, fmax is divided by two
+Info: tco from clock "CLOCK_50" to destination pin "DONE" through register "control_unit:CU|status.completed" is 6.686 ns
+    Info: + Longest clock path from clock "CLOCK_50" to source register is 2.451 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_N2; Fanout = 5; CLK Node = 'CLOCK_50'
+        Info: 2: + IC(0.915 ns) + CELL(0.537 ns) = 2.451 ns; Loc. = LCFF_X1_Y24_N27; Fanout = 3; REG Node = 'control_unit:CU|status.completed'
+        Info: Total cell delay = 1.536 ns ( 62.67 % )
+        Info: Total interconnect delay = 0.915 ns ( 37.33 % )
+    Info: + Micro clock to output delay of source is 0.250 ns
+    Info: + Longest register to pin delay is 3.985 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X1_Y24_N27; Fanout = 3; REG Node = 'control_unit:CU|status.completed'
+        Info: 2: + IC(0.340 ns) + CELL(0.393 ns) = 0.733 ns; Loc. = LCCOMB_X1_Y24_N16; Fanout = 1; COMB Node = 'control_unit:CU|DONE~0'
+        Info: 3: + IC(0.630 ns) + CELL(2.622 ns) = 3.985 ns; Loc. = PIN_L10; Fanout = 0; PIN Node = 'DONE'
+        Info: Total cell delay = 3.015 ns ( 75.66 % )
+        Info: Total interconnect delay = 0.970 ns ( 24.34 % )
+Info: Longest tpd from source pin "START" to destination pin "DONE" is 8.701 ns
+    Info: 1: + IC(0.000 ns) + CELL(0.832 ns) = 0.832 ns; Loc. = PIN_L6; Fanout = 3; CLK Node = 'START'
+    Info: 2: + IC(4.467 ns) + CELL(0.150 ns) = 5.449 ns; Loc. = LCCOMB_X1_Y24_N16; Fanout = 1; COMB Node = 'control_unit:CU|DONE~0'
+    Info: 3: + IC(0.630 ns) + CELL(2.622 ns) = 8.701 ns; Loc. = PIN_L10; Fanout = 0; PIN Node = 'DONE'
+    Info: Total cell delay = 3.604 ns ( 41.42 % )
+    Info: Total interconnect delay = 5.097 ns ( 58.58 % )
+Info: Quartus II Classic Timing Analyzer was successful. 0 errors, 19 warnings
+    Info: Peak virtual memory: 216 megabytes
+    Info: Processing ended: Sun Jun 12 19:30:12 2016
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
+
+

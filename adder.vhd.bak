@@ -1,0 +1,31 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+Entity adder IS
+	GENERIC ( N	: INTEGER:=8);
+	PORT (A0					: IN	SIGNED(N-1 DOWNTO 0);
+			A1					: IN	SIGNED(N-1 DOWNTO 0);
+			A2					: IN	SIGNED(N-1 DOWNTO 0);
+			A3					: IN	SIGNED(N-1 DOWNTO 0);
+			SUM				: OUT SIGNED(N-1 DOWNTO 0));
+END adder;
+
+Architecture howto of adder is
+
+COMPONENT adder8bit IS
+	GENERIC ( N	: INTEGER:=8);
+	PORT (A					: IN	SIGNED(N-1 DOWNTO 0);
+			B					: IN	SIGNED(N-1 DOWNTO 0);
+			Cin				: IN 	STD_LOGIC;
+			Cout				: OUT STD_LOGIC;
+			S					: OUT SIGNED(N-1 DOWNTO 0));
+END COMPONENT;
+
+Signal overflow: STD_LOGIC;
+
+Begin
+
+
+
+end howto;
